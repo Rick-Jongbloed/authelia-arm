@@ -16,15 +16,17 @@ steps:
 
 - name: build-authelia
 #  image: node:8.7.0-alpine
-  image: node:8.13-alpine
+  image: node:8.15-alpine
   commands:
   - pwd
   - mkdir authelia-source
   - cp authelia/package.json authelia-source/package.json
   - cd authelia-source
   #- cd authelia
+  - apk info
   - apk --update add --no-cache -v --virtual .build-deps make g++ python
   - npm install --production
+  - ls -la
   - apk del -v .build.deps
   # - mkdir /go/kaniko-files
   # - cp out/executor /go/kaniko-files
