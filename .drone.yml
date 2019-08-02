@@ -24,7 +24,7 @@ steps:
   #- cd authelia-source
   - cd authelia
   - apk --update add --no-cache -v --virtual .build-deps make g++ python
-  - npm install --production --loglevel debug
+  - npm install --production
   - apk del -v .build.deps
   # - mkdir /go/kaniko-files
   # - cp out/executor /go/kaniko-files
