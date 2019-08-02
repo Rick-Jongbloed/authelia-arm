@@ -35,9 +35,9 @@ steps:
   - ls -la
   - rm package-lock.json
   - npm cache clean --force
-  - npm install
-  - npm install commander --save
-  - npm test
+  - npm install --production
+  #- npm install commander --save
+  #- npm test
   - pwd
   - ls -la
   - ls server/ -la
