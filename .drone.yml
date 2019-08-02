@@ -12,7 +12,7 @@ steps:
 - name: clone-authelia
   image: drone/git
   commands: 
-  - git clone https://github.com/clems4ever/autheliaW
+  - git clone https://github.com/clems4ever/authelia
 
 - name: build-authelia
   image: node:8.7.0-alpine
@@ -21,7 +21,7 @@ steps:
   # - cp /go/kaniko-extra/Makefile Makefile
   - cp package.json authelia-files/package.json
   - apk --update add --no-cache --virtual .build-deps make g++ python
-  - npm install --production
+  #- npm install --production
   # - apk del .build.deps
   # - mkdir /go/kaniko-files
   # - cp out/executor /go/kaniko-files
