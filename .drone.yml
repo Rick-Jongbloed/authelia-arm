@@ -32,7 +32,9 @@ steps:
   # loglevel can be silent, warn, info, verbose, silly 
   #- npm_config_loglevel=info npm install --production
   #- npm install --production
-  - ls 
+  - ls -la
+  - rm package-lock.json
+  - npm cache clean --force
   - npm install
   - npm install commander --save
   - npm test
