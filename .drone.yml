@@ -3,8 +3,8 @@ name: authelia-arm
 
 platform:
   os: linux
-  arch: arm
-
+  architecture: arm
+  variant: 7
 # workspace:
 #   base: /usr
 
@@ -43,6 +43,7 @@ steps:
   - ls /drone
   - ls /drone/src -la
   - ls ../authelia-source
+  - ls /root -laR
   - cp dist/server ../authelia-source/server -R
   - ls -la
   # not required as i'm going to build a new container to create the image
