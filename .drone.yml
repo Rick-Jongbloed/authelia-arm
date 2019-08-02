@@ -17,8 +17,8 @@ steps:
 - name: build-authelia
 #  image: node:8.7.0-alpine
   image: node:8.15-alpine
-  environment:
-    npm_config_loglevel: silent
+  # environment:
+  #   npm_config_loglevel: silent
   commands:
   - pwd
   - mkdir authelia-source
@@ -27,7 +27,7 @@ steps:
   #- cd authelia
   - apk update
   - apk --update add --no-cache -v --virtual .build-deps make g++ python
-  - npm install --production
+  - npm_config_loglevel=silent npm install --production
   - ls -la
   - apk del -v .build.deps
   # - mkdir /go/kaniko-files
