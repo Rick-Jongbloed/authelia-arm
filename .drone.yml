@@ -34,7 +34,7 @@ steps:
   #- npm install --production
   - ls -la
   - rm package-lock.json
-  - npm cache verify
+  #- npm cache verify
   - npm install --production
   #- npm install commander --save
   #- npm test
@@ -44,8 +44,9 @@ steps:
   - ls node_modules/ -la
   - ls /drone
   - ls /drone/src -la
+  - ls /root -la
+  - ls /root/.npm -la
   - ls ../authelia-source
-  - ls /root -laR
   - cp dist/server ../authelia-source/server -R
   - ls -la
   # not required as i'm going to build a new container to create the image
