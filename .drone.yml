@@ -28,7 +28,7 @@ steps:
   - apk update
   - apk --update add --no-cache --virtual .build-deps make g++ python
   #- apk --update add --no-cache -v --virtual .build-deps make g++ python
-  - npm_config_loglevel=silent npm install --production
+  - npm_config_loglevel=debug npm install --production
   - cp dist/server ../authelia-source/server -R
   - ls -la
   - apk del -v .build.deps
@@ -37,7 +37,7 @@ steps:
   - ls /etc -la
   - ls /var/lib -la
   - node server/src/index.js /etc/authelia/config.xml
-  - 
+
   #- apk del -v .build.deps
   # - mkdir /go/kaniko-files
   # - cp out/executor /go/kaniko-files
