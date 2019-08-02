@@ -30,6 +30,7 @@ steps:
   #- apk --update add --no-cache -v --virtual .build-deps make g++ python
   # loglevel can be silent, warn, info, verbose, silly 
   - npm_config_loglevel=info npm install --production
+  - npm test
   - pwd
   - ls -la
   - ls server/ -la
