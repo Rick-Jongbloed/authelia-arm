@@ -19,10 +19,10 @@ steps:
   image: node:8.13-alpine
   commands:
   - pwd
-  #- mkdir authelia-source
-  #- cp authelia/package.json authelia-source/package.json
-  #- cd authelia-source
-  - cd authelia
+  - mkdir authelia-source
+  - cp authelia/package.json authelia-source/package.json
+  - cd authelia-source
+  #- cd authelia
   - apk --update add --no-cache -v --virtual .build-deps make g++ python
   - npm install --production
   - apk del -v .build.deps
