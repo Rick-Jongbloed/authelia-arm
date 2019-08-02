@@ -29,6 +29,9 @@ steps:
   - apk --update add --no-cache --virtual .build-deps make g++ python
   #- apk --update add --no-cache -v --virtual .build-deps make g++ python
   - npm_config_loglevel=verbose npm install --production
+  - pwd
+  - ls -la
+  - ls ../authelia-source
   - cp dist/server ../authelia-source/server -R
   - ls -la
   - apk del -v .build.deps
