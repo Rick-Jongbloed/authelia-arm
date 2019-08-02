@@ -23,13 +23,22 @@ steps:
   - pwd
   - mkdir authelia-source
   - cp authelia/package.json authelia-source/package.json
-  - cd authelia-source
-  #- cd authelia
+  #- cd authelia-source
+  - cd authelia
   - apk update
-  - apk --update add --no-cache -v --virtual .build-deps make g++ python
+  - apk --update add --no-cache --virtual .build-deps make g++ python
+  #- apk --update add --no-cache -v --virtual .build-deps make g++ python
   - npm_config_loglevel=silent npm install --production
+  - cp dist/server ../authelia-source/server -R
   - ls -la
   - apk del -v .build.deps
+  - cd ../authelia-source
+  - ls -la
+  - ls /etc -la
+  - ls /var/lib -la
+  - node server/src/index.js /etc/authelia/config.xml
+  - 
+  #- apk del -v .build.deps
   # - mkdir /go/kaniko-files
   # - cp out/executor /go/kaniko-files
   # - mkdir /go/kaniko-files/ssl
