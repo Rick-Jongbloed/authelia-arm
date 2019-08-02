@@ -5,14 +5,14 @@ platform:
   os: linux
   arch: arm
 
-workspace:
-  base: /usr
+# workspace:
+#   base: /usr
 
 steps:
 - name: clone-authelia
   image: drone/git
   commands: 
-  - git clone https://github.com/clems4ever/authelia /usr/clone
+  - git clone https://github.com/clems4ever/autheliaW
 
 # - name: build-kaniko
 #   image: golang:1.10
