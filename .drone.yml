@@ -1,0 +1,56 @@
+kind: pipeline
+name: authelia-arm
+
+platform:
+  os: linux
+  arch: arm
+
+workspace:
+  base: /usr
+
+steps:
+- name: clone-authelia
+  image: drone/git
+  commands: 
+  - git clone https://github.com/clems4ever/authelia /usr
+
+# - name: build-kaniko
+#   image: golang:1.10
+#   commands:
+#   - cd /go/src/github.com/GoogleContainerTools/kaniko
+#   - cp /go/kaniko-extra/Makefile Makefile
+#   - make out/executor
+#   - mkdir /go/kaniko-files
+#   - cp out/executor /go/kaniko-files
+#   - mkdir /go/kaniko-files/ssl
+#   - mkdir /go/kaniko-files/ssl/certs
+#   - cp files/ca-certificates.crt /go/kaniko-files/ssl/certs/ca-certificates.crt
+#   - mkdir /go/kaniko-files/.docker
+#   - cp /go/kaniko-extra/config.json /go/kaniko-files/.docker/config.json
+#   - cp /go/plugin.sh /go/kaniko-files/plugin.sh
+#   - chmod +rwx /go/kaniko-files/plugin.sh
+
+# - name: publish-drone-kaniko-plugin
+#   image: arm32v7/busybox
+#   settings:
+#     registry: docker.artificialcreature.com    
+#     repo: drone-plugins/kaniko
+#     tags: ${DRONE_COMMIT_SHA}
+#     kaniko_path: /go/kaniko-files
+#   environment:
+#     HOME: /root
+#     USER: /root
+#     SSL_CERT_DIR: /go/kaniko-files/ssl/certs
+#     DOCKER_CONFIG: /go/kaniko-files/.docker/
+#   commands:
+#   - mkdir /kaniko
+#   - cp /go/kaniko-files/* /kaniko -R
+#   - /go/kaniko-files/plugin.sh
+
+- name: publish-authelia
+  image: docker-registry:5000/drone-plugins/kaniko:latest
+  settings:
+    registry: docker.artificialcreature.com
+    repo: clems4ever/authelia
+    tags: latest
+    log: debug
