@@ -26,10 +26,13 @@ steps:
   #- cd authelia-source
   - cd authelia
   - apk update
-  - apk --update add --no-cache --virtual .build-deps make g++ python
+  #- apk --update add --no-cache --virtual .build-deps make g++ python
+  - apk add .build-deps make g++ python
   #- apk --update add --no-cache -v --virtual .build-deps make g++ python
   # loglevel can be silent, warn, info, verbose, silly 
-  - npm_config_loglevel=info npm install --production
+  #- npm_config_loglevel=info npm install --production
+  #- npm install --production
+  - npm install
   - npm test
   - pwd
   - ls -la
