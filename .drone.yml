@@ -16,7 +16,7 @@ steps:
 
 - name: build-authelia
 #  image: node:8.7.0-alpine
-  image: node:8.16-alpine
+  image: node:8-alpine
   commands:
   - mkdir authelia-files
   # - cp /go/kaniko-extra/Makefile Makefile
