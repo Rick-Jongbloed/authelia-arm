@@ -33,6 +33,7 @@ steps:
   #- npm_config_loglevel=info npm install --production
   #- npm install --production
   - npm install
+  - npm install commander --save
   - npm test
   - pwd
   - ls -la
