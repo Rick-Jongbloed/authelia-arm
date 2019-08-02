@@ -16,7 +16,7 @@ steps:
 
 - name: build-authelia
 #  image: node:8.7.0-alpine
-  image: node:8.15-alpine
+  image: node:12.7-alpine
   # environment:
   #   npm_config_loglevel: silent
   commands:
@@ -31,11 +31,14 @@ steps:
   # loglevel can be silent, warn, info, verbose, silly 
   - npm_config_loglevel=info npm install --production
   - pwd
-  - ls -la -R
+  - ls -la
+  - ls server/ -la
+  - ls node_modules/ -la
   - ls ../authelia-source
   - cp dist/server ../authelia-source/server -R
   - ls -la
-  - apk del -v .build.deps
+  # not required as i'm going to build a new container to create the image
+  #- apk del -v .build.deps
   - cd ../authelia-source
   - ls -la
   - ls /etc -la
