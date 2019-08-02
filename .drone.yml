@@ -12,7 +12,7 @@ steps:
 - name: clone-authelia
   image: drone/git
   commands: 
-  - git clone https://github.com/clems4ever/authelia /usr
+  - git clone https://github.com/clems4ever/authelia /usr/clone
 
 # - name: build-kaniko
 #   image: golang:1.10
