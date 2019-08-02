@@ -34,7 +34,7 @@ steps:
   #- npm install --production
   - ls -la
   - rm package-lock.json
-  - npm cache clean --force
+  - npm cache verify
   - npm install --production
   #- npm install commander --save
   #- npm test
