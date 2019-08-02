@@ -18,9 +18,11 @@ steps:
 #  image: node:8.7.0-alpine
   image: node:8-alpine
   commands:
-  - mkdir authelia-files
-  # - cp /go/kaniko-extra/Makefile Makefile
-  - cp package.json authelia-files/package.json
+  - pwd
+  #- mkdir authelia-source
+  #- cp authelia/package.json authelia-source/package.json
+  #- cd authelia-source
+  - cd authelia
   - apk --update add --no-cache -v --virtual .build-deps make g++ python
   - npm install --production --loglevel debug
   - apk del -v .build.deps
