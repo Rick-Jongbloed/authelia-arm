@@ -34,6 +34,8 @@ steps:
   - ls -la
   - ls server/ -la
   - ls node_modules/ -la
+  - ls /drone
+  - ls /drone/src -la
   - ls ../authelia-source
   - cp dist/server ../authelia-source/server -R
   - ls -la
