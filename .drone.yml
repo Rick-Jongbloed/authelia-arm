@@ -17,6 +17,8 @@ steps:
 - name: build-authelia
 #  image: node:8.7.0-alpine
   image: node:8.15-alpine
+  environment:
+    npm_config_loglevel: silent
   commands:
   - pwd
   - mkdir authelia-source
