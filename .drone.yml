@@ -14,21 +14,24 @@ steps:
   commands: 
   - git clone https://github.com/clems4ever/autheliaW
 
-# - name: build-kaniko
-#   image: golang:1.10
-#   commands:
-#   - cd /go/src/github.com/GoogleContainerTools/kaniko
-#   - cp /go/kaniko-extra/Makefile Makefile
-#   - make out/executor
-#   - mkdir /go/kaniko-files
-#   - cp out/executor /go/kaniko-files
-#   - mkdir /go/kaniko-files/ssl
-#   - mkdir /go/kaniko-files/ssl/certs
-#   - cp files/ca-certificates.crt /go/kaniko-files/ssl/certs/ca-certificates.crt
-#   - mkdir /go/kaniko-files/.docker
-#   - cp /go/kaniko-extra/config.json /go/kaniko-files/.docker/config.json
-#   - cp /go/plugin.sh /go/kaniko-files/plugin.sh
-#   - chmod +rwx /go/kaniko-files/plugin.sh
+- name: build-authelia
+  image: node:8.7.0-alpine
+  commands:
+  - mkdir authelia-files
+  # - cp /go/kaniko-extra/Makefile Makefile
+  - cp package.json authelia-files/package.json
+  - apk --update add --no-cache --virtual .build-deps make g++ python
+  - npm install --production
+  # - apk del .build.deps
+  # - mkdir /go/kaniko-files
+  # - cp out/executor /go/kaniko-files
+  # - mkdir /go/kaniko-files/ssl
+  # - mkdir /go/kaniko-files/ssl/certs
+  # - cp files/ca-certificates.crt /go/kaniko-files/ssl/certs/ca-certificates.crt
+  # - mkdir /go/kaniko-files/.docker
+  # - cp /go/kaniko-extra/config.json /go/kaniko-files/.docker/config.json
+  # - cp /go/plugin.sh /go/kaniko-files/plugin.sh
+  # - chmod +rwx /go/kaniko-files/plugin.sh
 
 # - name: publish-drone-kaniko-plugin
 #   image: arm32v7/busybox
@@ -47,10 +50,10 @@ steps:
 #   - cp /go/kaniko-files/* /kaniko -R
 #   - /go/kaniko-files/plugin.sh
 
-- name: publish-authelia
-  image: docker-registry:5000/drone-plugins/kaniko:latest
-  settings:
-    registry: docker.artificialcreature.com
-    repo: clems4ever/authelia
-    tags: latest
-    log: debug
+# - name: publish-authelia
+#   image: docker-registry:5000/drone-plugins/kaniko:latest
+#   settings:
+#     registry: docker.artificialcreature.com
+#     repo: clems4ever/authelia
+#     tags: latest
+#     log: debug
