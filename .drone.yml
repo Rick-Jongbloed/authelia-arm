@@ -23,9 +23,7 @@ steps:
   - cp authelia/package.json authelia-source/package.json
   - cd authelia-source
   #- cd authelia
-  - apk info
   - apk update
-  - apk info
   - apk --update add --no-cache -v --virtual .build-deps make g++ python
   - npm install --production
   - ls -la
