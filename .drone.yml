@@ -15,7 +15,8 @@ steps:
   - git clone https://github.com/clems4ever/authelia
 
 - name: build-authelia
-  image: node:8.7.0-alpine
+#  image: node:8.7.0-alpine
+  image: node:8.16-alpine
   commands:
   - mkdir authelia-files
   # - cp /go/kaniko-extra/Makefile Makefile
