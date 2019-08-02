@@ -20,9 +20,9 @@ steps:
   - mkdir authelia-files
   # - cp /go/kaniko-extra/Makefile Makefile
   - cp package.json authelia-files/package.json
-  - apk --update add --no-cache --virtual .build-deps make g++ python
-  #- npm install --production
-  # - apk del .build.deps
+  - apk --update add --no-cache -v --virtual .build-deps make g++ python
+  - npm install --production --loglevel debug
+  - apk del -v .build.deps
   # - mkdir /go/kaniko-files
   # - cp out/executor /go/kaniko-files
   # - mkdir /go/kaniko-files/ssl
