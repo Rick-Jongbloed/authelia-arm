@@ -16,7 +16,7 @@ steps:
 
 - name: build-authelia
 #  image: node:8.7.0-alpine
-  image: node:8-alpine
+  image: node:8.7-alpine
   commands:
   - pwd
   #- mkdir authelia-source
