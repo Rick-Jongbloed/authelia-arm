@@ -39,10 +39,13 @@ steps:
   - cp server/src/resources/** dist/server/src/resources/
   - node_modules/.bin/typescript-json-schema -o server/src/lib/configuration/Configuration.schema.json --strictNullChecks --required server/tsconfig.json Configuration
   - cp server/src/lib/configuration/Configuration.schema.json $DIST_DIR/server/src/lib/configuration
-  - pushd client 
+  - pushd client
+  - pwd 
   - npm run build
   - popd
+  - pwd
   - mv client/build $DIST_DIR/server/src/public_html
+  - pwd
   - cp dist/server ../authelia-source/server -R
   - ls -la
   # not required as i'm going to build a new container to create the image
