@@ -33,6 +33,8 @@ steps:
   #- npm_config_loglevel=info npm install --production
   - rm package-lock.json
   - npm install --production
+  - pwd
+  - ls node_modules
   - node_modules/.bin/tslint -c server/tslint.json -p server/tsconfig.json
   - node_modules/.bin/tsc -p server/tsconfig.json
   - mkdir -p dist/server/src/resources
@@ -48,7 +50,7 @@ steps:
   - pwd
   - cp dist/server ../authelia-source/server -R
   - ls -la
-  
+
   # not required as i'm going to build a new container to create the image
   #- apk del -v .build.deps
   - cd ../authelia-source
