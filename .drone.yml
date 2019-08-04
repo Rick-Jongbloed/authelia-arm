@@ -31,22 +31,18 @@ steps:
   #- apk --update add --no-cache -v --virtual .build-deps make g++ python
   # loglevel can be silent, warn, info, verbose, silly 
   #- npm_config_loglevel=info npm install --production
-  #- npm install --production
-  - ls -la
   - rm package-lock.json
-  #- npm cache verify
   - npm install --production
-  #- npm install commander --save
-  #- npm test
-  - pwd
-  - ls -la
-  - ls server/ -la
-  - ls node_modules/ -la
-  - ls /drone
-  - ls /drone/src -la
-  - ls /root -la
-  - ls /root/.npm -la
-  - ls ../authelia-source
+  - node_modules/.bin/tslint -c server/tslint.json -p server/tsconfig.json
+  - node_modules/.bin/tsc -p server/tsconfig.json
+  - mkdir -p dist/server/src/resources
+  - cp server/src/resources/** dist/server/src/resources/
+  - node_modules/.bin/typescript-json-schema -o server/src/lib/configuration/Configuration.schema.json --strictNullChecks --required server/tsconfig.json Configuration
+  - cp server/src/lib/configuration/Configuration.schema.json $DIST_DIR/server/src/lib/configuration
+  - pushd client 
+  - npm run build
+  - popd
+  - mv client/build $DIST_DIR/server/src/public_html
   - cp dist/server ../authelia-source/server -R
   - ls -la
   # not required as i'm going to build a new container to create the image
