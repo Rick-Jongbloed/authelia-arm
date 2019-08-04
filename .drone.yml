@@ -48,6 +48,7 @@ steps:
   - pwd
   - cp dist/server ../authelia-source/server -R
   - ls -la
+  
   # not required as i'm going to build a new container to create the image
   #- apk del -v .build.deps
   - cd ../authelia-source
