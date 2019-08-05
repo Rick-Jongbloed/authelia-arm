@@ -21,29 +21,26 @@ steps:
   #   npm_config_loglevel: silent
   commands:
   - pwd
-  - mkdir authelia-source
-  - cp authelia/package.json authelia-source/package.json
+#  - mkdir authelia-source
+#  - cp authelia/package.json authelia-source/package.json
   #- cd authelia-source
   - cd authelia
   - apk update
   - apk add make g++ python
     #- npm_config_loglevel=info npm install --production    # loglevel can be silent, warn, info, verbose, silly 
-  - rm package-lock.json
-  - npm install --production
-  - pwd
-  - ls node_modules
+  #- rm package-lock.json
+  #- npm install
+  - cd client
+  - npm install
+  - npm run build
+  - cd ..
   - node_modules/.bin/tslint -c server/tslint.json -p server/tsconfig.json
   - node_modules/.bin/tsc -p server/tsconfig.json
   - mkdir -p dist/server/src/resources
   - cp server/src/resources/** dist/server/src/resources/
   - node_modules/.bin/typescript-json-schema -o server/src/lib/configuration/Configuration.schema.json --strictNullChecks --required server/tsconfig.json Configuration
   - cp server/src/lib/configuration/Configuration.schema.json $DIST_DIR/server/src/lib/configuration
-  - pushd client
-  - pwd 
-  - npm run build
-  - popd
-  - pwd
-  - mv client/build $DIST_DIR/server/src/public_html
+  - mv client/build dist/server/src/public_html
   - pwd
   - cp dist/server ../authelia-source/server -R
   - ls -la
