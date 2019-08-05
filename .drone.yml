@@ -12,21 +12,19 @@ steps:
   commands: 
   - git clone https://github.com/clems4ever/authelia
 
-- name: build-authelia
+- name: build-client-server
   image: arm32v7/node:8.15-slim
   # environment:
   #   npm_config_loglevel: silent #- npm_config_loglevel=info npm install --production    # loglevel can be silent, warn, info, verbose, silly 
   commands:
   - cd authelia
   - apt update
-  #- apt install -y --no-install-recommends make g++ python chromedriver
   - apt install -y --no-install-recommends make g++ python
   - cd client
   - npm install
-  - CI=false npm run build
+  - CI=false npm run build # should really fix the warnings so CI=false isnt needed
   - cd ..
-  #- CHROMEDRIVER_SKIP_DOWNLOAD=true npm install
-  - sed -i '/chromedriver/d' package.json
+  - sed -i '/chromedriver/d' package.json # Remove chromedriver as it's only used for tests
   - npm install
   - node_modules/.bin/tslint -c server/tslint.json -p server/tsconfig.json
   - node_modules/.bin/tsc -p server/tsconfig.json
@@ -36,10 +34,10 @@ steps:
   - cp server/src/lib/configuration/Configuration.schema.json dist/server/src/lib/configuration
   - mv client/build dist/server/src/public_html
 
-# - name: publish-authelia
-#   image: docker-registry:5000/drone-plugins/kaniko:latest
-#   settings:
-#     registry: docker.artificialcreature.com
-#     repo: clems4ever/authelia
-#     tags: latest
-#     log: debug
+- name: publish-authelia
+  image: docker-registry:5000/drone-plugins/kaniko:latest
+  settings:
+    registry: docker.artificialcreature.com
+    repo: clems4ever/authelia
+    tags: latest
+    log: debug
