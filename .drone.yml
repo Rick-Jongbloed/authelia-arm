@@ -8,6 +8,7 @@ platform:
 # workspace:
 #   base: /usr
 
+
 steps:
 - name: clone-authelia
   image: drone/git
