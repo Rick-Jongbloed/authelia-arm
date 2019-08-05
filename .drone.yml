@@ -19,12 +19,15 @@ steps:
   commands:
   - cd authelia
   - apt update
-  - apt install -y --no-install-recommends make g++ python chromedriver
+  #- apt install -y --no-install-recommends make g++ python chromedriver
+  - apt install -y --no-install-recommends make g++ python
   - cd client
   - npm install
   - CI=false npm run build
   - cd ..
-  - CHROMEDRIVER_SKIP_DOWNLOAD=true npm install
+  #- CHROMEDRIVER_SKIP_DOWNLOAD=true npm install
+  - sed -i '/chromedriver/d' package.json
+  - npm install
   - node_modules/.bin/tslint -c server/tslint.json -p server/tsconfig.json
   - node_modules/.bin/tsc -p server/tsconfig.json
   - mkdir -p dist/server/src/resources
