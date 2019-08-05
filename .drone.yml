@@ -5,9 +5,6 @@ platform:
   os: linux
   architecture: arm
   variant: 7
-# workspace:
-#   base: /usr
-
 
 steps:
 - name: clone-authelia
@@ -16,72 +13,25 @@ steps:
   - git clone https://github.com/clems4ever/authelia
 
 - name: build-authelia
-#  image: node:8.7.0-alpine
-  image: node:8.15-alpine
+  image: arm32v7/node:8.15-slim
   # environment:
-  #   npm_config_loglevel: silent
+  #   npm_config_loglevel: silent #- npm_config_loglevel=info npm install --production    # loglevel can be silent, warn, info, verbose, silly 
   commands:
-  - pwd
-#  - mkdir authelia-source
-#  - cp authelia/package.json authelia-source/package.json
-  #- cd authelia-source
   - cd authelia
-  - apk update
-  - apk add make g++ python
-    #- npm_config_loglevel=info npm install --production    # loglevel can be silent, warn, info, verbose, silly 
-  #- rm package-lock.json
-  #- npm install
+  - apt update
+  - apt install -y --no-install-recommends make g++ python chromedriver
   - cd client
   - npm install
   - CI=false npm run build
   - cd ..
-  - npm install
+  - CHROMEDRIVER_SKIP_DOWNLOAD=true npm install
   - node_modules/.bin/tslint -c server/tslint.json -p server/tsconfig.json
   - node_modules/.bin/tsc -p server/tsconfig.json
   - mkdir -p dist/server/src/resources
   - cp server/src/resources/** dist/server/src/resources/
   - node_modules/.bin/typescript-json-schema -o server/src/lib/configuration/Configuration.schema.json --strictNullChecks --required server/tsconfig.json Configuration
-  - cp server/src/lib/configuration/Configuration.schema.json $DIST_DIR/server/src/lib/configuration
+  - cp server/src/lib/configuration/Configuration.schema.json dist/server/src/lib/configuration
   - mv client/build dist/server/src/public_html
-  - pwd
-  - cp dist/server ../authelia-source/server -R
-  - ls -la
-
-  # not required as i'm going to build a new container to create the image
-  #- apk del -v .build.deps
-  - cd ../authelia-source
-  - ls -la
-  - ls /etc -la
-  - ls /var/lib -la
-  - node server/src/index.js /etc/authelia/config.xml
-
-  #- apk del -v .build.deps
-  # - mkdir /go/kaniko-files
-  # - cp out/executor /go/kaniko-files
-  # - mkdir /go/kaniko-files/ssl
-  # - mkdir /go/kaniko-files/ssl/certs
-  # - cp files/ca-certificates.crt /go/kaniko-files/ssl/certs/ca-certificates.crt
-  # - mkdir /go/kaniko-files/.docker
-  # - cp /go/kaniko-extra/config.json /go/kaniko-files/.docker/config.json
-  # - cp /go/plugin.sh /go/kaniko-files/plugin.sh
-  # - chmod +rwx /go/kaniko-files/plugin.sh
-
-# - name: publish-drone-kaniko-plugin
-#   image: arm32v7/busybox
-#   settings:
-#     registry: docker.artificialcreature.com    
-#     repo: drone-plugins/kaniko
-#     tags: ${DRONE_COMMIT_SHA}
-#     kaniko_path: /go/kaniko-files
-#   environment:
-#     HOME: /root
-#     USER: /root
-#     SSL_CERT_DIR: /go/kaniko-files/ssl/certs
-#     DOCKER_CONFIG: /go/kaniko-files/.docker/
-#   commands:
-#   - mkdir /kaniko
-#   - cp /go/kaniko-files/* /kaniko -R
-#   - /go/kaniko-files/plugin.sh
 
 # - name: publish-authelia
 #   image: docker-registry:5000/drone-plugins/kaniko:latest
