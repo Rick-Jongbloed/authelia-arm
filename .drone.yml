@@ -33,8 +33,9 @@ steps:
   #- npm install
   - cd client
   - npm install
-  - npm run build
+  - CI=false npm run build
   - cd ..
+  - npm install
   - node_modules/.bin/tslint -c server/tslint.json -p server/tsconfig.json
   - node_modules/.bin/tsc -p server/tsconfig.json
   - mkdir -p dist/server/src/resources
