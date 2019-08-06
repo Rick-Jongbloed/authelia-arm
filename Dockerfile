@@ -4,14 +4,13 @@ WORKDIR /usr/src
 
 COPY package.json /usr/src/authelia/package.json
 
-RUN pwd \
-    && apt update \
+RUN apt update \
     && apt install -y \
         python \
         make \
         g++ \
-    && rm -rf /var/lib/apt/lists/*``` \
-    && npm install --production
+    && npm install --production \
+    && rm -rf /var/lib/apt/lists/*``` 
 
 COPY authelia/dist/server /usr/src/server
 
