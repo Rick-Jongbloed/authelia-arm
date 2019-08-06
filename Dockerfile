@@ -2,11 +2,9 @@ FROM arm32v7/node:8.15-slim
 
 WORKDIR /usr/src
 
-COPY package.json /usr/src/authelia/package.json
+COPY authelia\package.json /usr/src/package.json
 
-RUN ls -la \
-    && ls authelia -la \
-    && apt update \
+RUN apt update \
     && apt install -y \
         python \
         make \
