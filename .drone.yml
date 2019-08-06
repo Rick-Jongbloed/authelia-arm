@@ -40,4 +40,4 @@ steps:
     registry: docker.artificialcreature.com
     repo: clems4ever/authelia
     tags: latest
-    log: debug
+    log: info
