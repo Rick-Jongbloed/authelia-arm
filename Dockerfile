@@ -4,7 +4,9 @@ WORKDIR /usr/src
 
 COPY package.json /usr/src/authelia/package.json
 
-RUN apt update \
+RUN ls -la \
+    && ls authelia -la \
+    && apt update \
     && apt install -y \
         python \
         make \
