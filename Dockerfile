@@ -2,16 +2,18 @@ FROM arm32v7/node:8.15-slim
 
 WORKDIR /usr/src
 
-COPY package.json /usr/src/package.json
+COPY package.json /usr/src/authelia/package.json
 
-RUN apt update && apt install -y \
-    python \
-    make \
-    g++ \
-    && npm install --production \
-    && rm -rf /var/lib/apt/lists/*``` 
+RUN pwd \
+    && apt update \
+    && apt install -y \
+        python \
+        make \
+        g++ \
+    && rm -rf /var/lib/apt/lists/*``` \
+    && npm install --production
 
-COPY dist/server /usr/src/server
+COPY authelia/dist/server /usr/src/server
 
 EXPOSE 9091
 
