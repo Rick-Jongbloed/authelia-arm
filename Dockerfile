@@ -10,7 +10,7 @@ RUN apt update \
         make \
         g++ \
     && npm install --production \
-    && rm -rf /var/lib/apt/lists/*``` 
+    && rm -rf /var/lib/apt/lists/*
 
 COPY authelia/dist/server /usr/src/server
 
